@@ -2,23 +2,70 @@ module.exports = {
   async headers() {
     return [
       {
-        source: '/about',
+        source: '/static',
         headers: [
           {
-            key: 'X-About-Custom-Header',
-            value: 'about_header_value',
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, s-maxage=60, stale-while-revalidate=86400',
+          },
+          {
+            key: 'X-Custom-Header',
+            value: 'no props, no link',
           },
         ],
       },
       {
-        source: '/news/:id',
+        source: '/static-link',
         headers: [
           {
-            key: 'X-News-Custom-Header',
-            value: 'news_header_value',
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, s-maxage=60, stale-while-revalidate=86400',
+          },
+          {
+            key: 'X-Custom-Header',
+            value: 'no props, with link',
           },
         ],
       },
-    ]
+      {
+        source: '/props',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, s-maxage=60, stale-while-revalidate=86400',
+          },
+          {
+            key: 'X-Custom-Header',
+            value: 'with static props',
+          },
+        ],
+      },
+      {
+        source: '/props-link',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, s-maxage=60, stale-while-revalidate=86400',
+          },
+          {
+            key: 'X-Custom-Header',
+            value: 'with static props, with next/link',
+          },
+        ],
+      },
+      {
+        source: '/_next/data/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, s-maxage=60, stale-while-revalidate=86400',
+          },
+          {
+            key: 'X-Custom-Header',
+            value: '_next/data',
+          },
+        ],
+      },
+    ];
   },
-}
+};
